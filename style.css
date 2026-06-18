@@ -211,6 +211,13 @@ button:hover { opacity: 0.82; }
   font-family: var(--font-mono);
 }
 
+.wake-warn {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #b45309;
+  padding: 2px 12px 0;
+}
+
 .training-main {
   flex: 1;
   display: flex;

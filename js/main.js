@@ -8,7 +8,7 @@ import {
   updateTrainingDisplay, showPauseOverlay, hidePauseOverlay,
   renderSummary, openEditModal,
 } from './ui.js';
-import { requestWakeLock, releaseWakeLock } from './wakelock.js';
+import { requestWakeLock, releaseWakeLock, setWakeLockStatusHandler } from './wakelock.js';
 
 // ── App state ─────────────────────────────────────────────────────────────────
 
@@ -48,6 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('sldTickVolume').value = tickVol;
   document.getElementById('sldEndVolume').value  = endVol;
   showSaveLocalBtn(false);
+
+  setWakeLockStatusHandler(active => {
+    document.getElementById('lblWakeWarn').classList.toggle('hidden', active);
+  });
 
   wireEvents();
   showView('launch');

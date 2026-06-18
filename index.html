@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interval Training Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-view="launch" data-state="">
+
+  <!-- ── Launch View ─────────────────────────────────────────── -->
+  <section id="view-launch">
+    <header class="launch-header">
+      <h1>Interval Training Tool</h1>
+      <div class="plan-file-ops">
+        <button id="btnOpen">📂 開啟計畫</button>
+        <button id="btnSavePlan">💾 另存計畫</button>
+      </div>
+    </header>
+
+    <div class="table-wrap">
+      <table id="tblExercises">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>名稱</th>
+            <th>APS</th>
+            <th>次數</th>
+            <th>MET</th>
+            <th>說明</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbodyExercises"></tbody>
+      </table>
+      <button id="btnAddExercise" class="btn-add">＋ 新增動作</button>
+    </div>
+
+    <div class="params-section">
+      <div class="params-grid">
+        <label>運動<br><input type="number" id="txtExerciseSeconds" min="1" step="1"> s</label>
+        <label>休息<br><input type="number" id="txtRestSeconds"      min="0" step="1"> s</label>
+        <label>輪數<br><input type="number" id="txtRounds"           min="1" step="1"></label>
+        <label>輪間休息<br><input type="number" id="txtRoundRestSeconds" min="0" step="1"> s</label>
+        <label>準備<br><input type="number" id="txtPrepareSeconds"   min="0" step="1"> s</label>
+      </div>
+
+      <div class="volume-grid">
+        <label>節拍音量
+          <input type="range" id="sldTickVolume" min="0" max="100">
+          <span id="lblTickVol">80</span>
+        </label>
+        <label>結束音量
+          <input type="range" id="sldEndVolume" min="0" max="100">
+          <span id="lblEndVol">100</span>
+        </label>
+      </div>
+
+      <div class="launch-footer">
+        <button id="btnSaveLocal" class="btn-secondary hidden">💾 儲存</button>
+        <button id="btnStart" class="btn-primary">▶ 開始訓練</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Training View ───────────────────────────────────────── -->
+  <section id="view-training">
+    <div class="hud-top">
+      <span id="lblTotalTime">總計時  00:00:00.000</span>
+      <span id="lblStateName">準備</span>
+    </div>
+
+    <div class="training-main">
+      <div id="lblActionName" class="action-name big"></div>
+      <div id="lblDescription" class="action-desc hidden"></div>
+      <div id="lblCountdown" class="countdown">00:00.000</div>
+      <div id="lblRound" class="round-count"></div>
+      <div id="lblSet"   class="set-count"></div>
+      <div id="lblAps"   class="aps-display"></div>
+      <div class="metronome">
+        <div id="dotLeft"  class="dot"></div>
+        <div id="dotRight" class="dot"></div>
+      </div>
+    </div>
+
+    <div class="training-controls">
+      <button id="btnPause">⏸ 暫停</button>
+      <button id="btnFullscreen" title="全螢幕 (F11)">⛶</button>
+    </div>
+
+    <!-- Pause overlay -->
+    <div id="pauseOverlay" class="pause-overlay hidden">
+      <div class="pause-msg">⏸ 已暫停</div>
+      <div class="pause-hint">空白鍵 繼續 &nbsp;／&nbsp; ESC 結束訓練</div>
+      <div class="pause-btns">
+        <button id="btnResume"      class="btn-primary">▶ 繼續訓練</button>
+        <button id="btnEndTraining" class="btn-danger">✕ 結束訓練</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Summary View ────────────────────────────────────────── -->
+  <section id="view-summary">
+    <div class="summary-card">
+      <h2>訓練摘要</h2>
+      <div id="summaryContent"></div>
+      <div class="summary-actions">
+        <button id="btnDownloadSummary" class="btn-secondary">📥 下載摘要 JSON</button>
+        <button id="btnBackToLaunch"    class="btn-primary">← 返回首頁</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Edit Modal ──────────────────────────────────────────── -->
+  <dialog id="editModal">
+    <h3 id="editModalTitle">編輯動作</h3>
+    <div class="modal-form">
+      <label>名稱
+        <input type="text" id="editName" placeholder="動作名稱">
+      </label>
+      <label>說明
+        <input type="text" id="editDesc" placeholder="動作說明（選填）">
+      </label>
+      <div class="aps-reps-row">
+        <label>APS（每秒動作次數）
+          <input type="number" id="editAps" step="0.01" min="0">
+        </label>
+        <label>次數（依運動秒數換算）
+          <input type="number" id="editReps" step="0.01" min="0">
+        </label>
+      </div>
+      <div id="editRepsInfo" class="reps-info"></div>
+      <label>MET
+        <input type="number" id="editMet" step="0.1" min="0">
+      </label>
+    </div>
+    <div class="modal-buttons">
+      <button id="editCancel" class="btn-secondary">取消</button>
+      <button id="editOk"     class="btn-primary">確認</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+
+  <!-- Volume label sync (inline, no module needed) -->
+  <script>
+    document.getElementById('sldTickVolume').addEventListener('input', e => {
+      document.getElementById('lblTickVol').textContent = e.target.value;
+    });
+    document.getElementById('sldEndVolume').addEventListener('input', e => {
+      document.getElementById('lblEndVol').textContent = e.target.value;
+    });
+  </script>
+</body>
+</html>

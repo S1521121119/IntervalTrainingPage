@@ -8,6 +8,7 @@ import {
   updateTrainingDisplay, showPauseOverlay, hidePauseOverlay,
   renderSummary, openEditModal,
 } from './ui.js';
+import { requestWakeLock, releaseWakeLock } from './wakelock.js';
 
 // ── App state ─────────────────────────────────────────────────────────────────
 
@@ -81,6 +82,14 @@ function wireEvents() {
   document.getElementById('btnBackToLaunch').addEventListener('click', () => showView('launch'));
 
   document.addEventListener('keydown', onKeyDown);
+
+  // iOS releases the wake lock whenever the page goes to background (e.g. screen-off
+  // via the side button, app switch); re-acquire it once the page is visible again.
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && document.body.dataset.view === 'training') {
+      requestWakeLock();
+    }
+  });
 }
 
 // ── Launch view handlers ──────────────────────────────────────────────────────
@@ -234,6 +243,7 @@ function startTraining(training, exercises) {
 
   engine.start();        // → onStateChanged(Prepare) → metro reset
   requestNextFrame();
+  requestWakeLock();
 }
 
 // Called on every state change (genuine phase transitions AND pause/resume)
@@ -259,6 +269,7 @@ function onStateChanged(state) {
 
 function onTrainingCompleted() {
   metro.stop();
+  releaseWakeLock();
   if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
 
   const totalMs = performance.now() - trainingStartPerf;

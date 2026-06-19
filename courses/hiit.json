@@ -1,0 +1,19 @@
+{
+  "training": {
+    "exercise_seconds": 20,
+    "rest_seconds": 15,
+    "rounds": 2,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 5
+  },
+  "exercises": [
+    { "name": "波比跳",     "description": "站立→蹲下→伸腿伏地挺身→跳起，全身連貫爆發動作",                 "aps": 0.35, "met": 9.0,  "enable": true },
+    { "name": "高抬腿跑",   "description": "原地衝刺，雙腳交替抬高至腰部，維持最快步頻",                     "aps": 3.00, "met": 9.5,  "enable": true },
+    { "name": "登山者",     "description": "平板支撐姿勢，雙腳交替快速往胸口收縮，模擬爬山衝刺",             "aps": 2.50, "met": 8.5,  "enable": true },
+    { "name": "弓箭步跳躍", "description": "弓箭步起跳，空中換腳，落地後接另一側弓箭步",                     "aps": 0.75, "met": 8.5,  "enable": true },
+    { "name": "深蹲跳",     "description": "深蹲至大腿平行地面後爆發起跳，落地緩衝後接續下蹲",               "aps": 0.65, "met": 8.0,  "enable": true },
+    { "name": "開合跳",     "description": "雙腳開合同時雙手上舉拍掌，節奏穩定地持續進行",                   "aps": 1.10, "met": 7.75, "enable": true },
+    { "name": "伏地挺身",   "description": "普通的伏地挺身",                                               "aps": 0.50, "met": 7.5,  "enable": true },
+    { "name": "平板開合跳", "description": "手臂撐地平板支撐，雙腳進行開合跳，核心持續收緊",                 "aps": 1.25, "met": 7.0,  "enable": true }
+  ]
+}

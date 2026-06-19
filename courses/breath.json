@@ -1,0 +1,15 @@
+{
+  "training": {
+    "exercise_seconds": 2,
+    "rest_seconds": 2,
+    "rounds": 3,
+    "round_rest_seconds": 2,
+    "prepare_seconds": 2
+  },
+  "exercises": [
+    { "name": "吸氣",  "description": "吸氣", "aps": 2.0, "met": 0.0, "enable": true },
+    { "name": "憋氣",  "description": "憋氣", "aps": 2.0, "met": 0.0, "enable": true },
+    { "name": "吐氣",  "description": "吐氣", "aps": 2.0, "met": 0.0, "enable": true },
+    { "name": "停止",  "description": "吐氣", "aps": 2.0, "met": 0.0, "enable": true }
+  ]
+}

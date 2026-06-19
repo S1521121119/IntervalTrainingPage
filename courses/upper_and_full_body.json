@@ -1,0 +1,14 @@
+{
+  "training": {
+    "exercise_seconds": 20,
+    "rest_seconds": 10,
+    "rounds": 1,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 5
+  },
+  "exercises": [
+    { "name": "伏地挺身",   "description": "雙手撐地略寬於肩，彎曲手肘降低身體至胸口貼近地面後推起", "aps": 0.5, "met": 5.0, "enable": true },
+    { "name": "跪姿伏地挺身", "description": "雙膝著地的退階版伏地挺身，適合新手或力竭時進行",       "aps": 0.5, "met": 3.5, "enable": true },
+    { "name": "空擊出拳",   "description": "戰鬥站姿，雙手握拳快速向前交替打出直拳",                 "aps": 2.0, "met": 6.0, "enable": true }
+  ]
+}

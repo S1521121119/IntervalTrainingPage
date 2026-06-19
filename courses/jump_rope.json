@@ -1,0 +1,12 @@
+{
+  "training": {
+    "exercise_seconds": 30,
+    "rest_seconds": 3,
+    "rounds": 6,
+    "round_rest_seconds": 0,
+    "prepare_seconds": 3
+  },
+  "exercises": [
+    { "name": "跳繩", "description": "一般的跳繩", "aps": 2.85, "met": 8.0, "enable": true }
+  ]
+}

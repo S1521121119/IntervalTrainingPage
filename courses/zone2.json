@@ -1,0 +1,17 @@
+{
+  "training": {
+    "exercise_seconds": 30,
+    "rest_seconds": 15,
+    "rounds": 2,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 5
+  },
+  "exercises": [
+    { "name": "單腳踢臀跑",   "description": "原地慢跑，後抬小腿以腳跟交替觸臀，節奏輕鬆穩定",           "aps": 1.5, "met": 7.0, "enable": true },
+    { "name": "徒手深蹲",     "description": "雙腳與肩同寬，臀部後坐下蹲至大腿近平行再起身",             "aps": 0.5, "met": 5.0, "enable": true },
+    { "name": "推牆加速訓練", "description": "雙手推牆前傾，原地高頻交替提腿，維持穩定呼吸節奏",         "aps": 2.0, "met": 7.0, "enable": true },
+    { "name": "徒手行進弓箭步", "description": "左右腳交替向前跨步下蹲，後膝近地再起身持續前行",         "aps": 0.4, "met": 5.0, "enable": true },
+    { "name": "交叉側併步",   "description": "側向移動，雙腳前後交叉快速踩步，保持低重心",               "aps": 1.5, "met": 7.0, "enable": true },
+    { "name": "臀橋",         "description": "平躺屈膝，臀部用力向上頂成橋形，頂點停頓再放下",           "aps": 0.5, "met": 4.0, "enable": true }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "training": {
+    "exercise_seconds": 20,
+    "rest_seconds": 10,
+    "rounds": 1,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 5
+  },
+  "exercises": [
+    { "name": "高抬腿",   "description": "原地快速交替抬高膝蓋至腰部高度，雙手自然擺動",   "aps": 2.0, "met": 8.0, "enable": true },
+    { "name": "登山者",   "description": "呈伏地挺身姿勢，雙腳快速交替提膝靠近胸口",       "aps": 2.0, "met": 8.0, "enable": true },
+    { "name": "深蹲跳",   "description": "下蹲後全力向上跳躍，落地時順勢緩衝下蹲",         "aps": 0.5, "met": 8.0, "enable": true },
+    { "name": "後踢腿跳", "description": "原地跑跳，腳跟向後快速交替踢向臀部",             "aps": 2.0, "met": 6.0, "enable": true }
+  ]
+}

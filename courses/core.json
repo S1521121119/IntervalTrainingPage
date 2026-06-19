@@ -1,0 +1,14 @@
+{
+  "training": {
+    "exercise_seconds": 20,
+    "rest_seconds": 10,
+    "rounds": 1,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 5
+  },
+  "exercises": [
+    { "name": "棒式開合跳",     "description": "呈平板支撐（前臂撐地）姿勢，雙腳進行開合跳躍",         "aps": 1.5, "met": 7.0, "enable": true },
+    { "name": "俄羅斯轉體",     "description": "坐姿，雙腳微抬離地，雙手交握帶動軀幹左右扭轉",         "aps": 1.0, "met": 4.5, "enable": true },
+    { "name": "仰臥起坐腳踏車", "description": "仰臥，雙手放耳際，對側手肘與膝蓋交替碰觸",             "aps": 1.0, "met": 5.0, "enable": true }
+  ]
+}

@@ -84,6 +84,16 @@ button:hover { opacity: 0.82; }
 
 .plan-file-ops { display: flex; gap: 8px; }
 
+#selCourse {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
 /* Exercise table */
 .table-wrap {
   overflow-x: auto;

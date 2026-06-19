@@ -1,0 +1,14 @@
+{
+  "training": {
+    "exercise_seconds": 20,
+    "rest_seconds": 10,
+    "rounds": 1,
+    "round_rest_seconds": 60,
+    "prepare_seconds": 6
+  },
+  "exercises": [
+    { "name": "側弓步蹲",         "description": "雙腳寬站距，單腳彎曲下蹲，另一腳伸直，左右交替",           "aps": 0.4, "met": 5.0, "enable": true },
+    { "name": "羅馬尼亞硬舉(徒手)", "description": "雙腳微彎，臀部向後推，感受大腿後側拉伸後站直夾臀",       "aps": 0.5, "met": 3.5, "enable": true },
+    { "name": "提踵(墊腳尖)",      "description": "雙腳站立，控制小腿發力將腳跟抬起至最高點後緩慢落下",       "aps": 0.6, "met": 3.0, "enable": true }
+  ]
+}

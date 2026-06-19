@@ -91,6 +91,12 @@ export function showSaveLocalBtn(visible) {
   document.getElementById('btnSaveLocal').classList.toggle('hidden', !visible);
 }
 
+export function populateCourseSelect(names, selected) {
+  const sel = document.getElementById('selCourse');
+  sel.innerHTML = names.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  if (selected) sel.value = selected;
+}
+
 // ── Training view ─────────────────────────────────────────────────────────────
 
 export function updateTrainingDisplay(engine, totalMs, phaseElapsedMs, isLeft) {

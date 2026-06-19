@@ -1,14 +1,17 @@
 import { State, IntervalTrainingEngine } from './engine.js';
 import { MetronomeScheduler, calculateRestAps } from './metronome.js';
 import { SoundPlayer } from './sound.js';
-import { loadLocal, saveLocal, openPlanFile, savePlanFile, saveSummaryFile, DEFAULT_PLAN, clonePlan } from './config.js';
+import { loadLocal, saveLocal, openPlanFile, savePlanFile, saveSummaryFile, clonePlan } from './config.js';
 import {
   renderExerciseTable, refreshRepsCells, setParamFields, getParamValues,
-  getCheckboxStates, showSaveLocalBtn,
+  getCheckboxStates, showSaveLocalBtn, populateCourseSelect,
   updateTrainingDisplay, showPauseOverlay, hidePauseOverlay,
   renderSummary, openEditModal,
 } from './ui.js';
 import { requestWakeLock, releaseWakeLock, setWakeLockStatusHandler } from './wakelock.js';
+import { loadCourseList, loadCourse } from './courses.js';
+
+const DEFAULT_COURSE = 'exercises_default';
 
 // ── App state ─────────────────────────────────────────────────────────────────
 
@@ -36,12 +39,24 @@ let lastSession = null;
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const stored = loadLocal();
   tickVol = stored.tickVol;
   endVol  = stored.endVol;
 
-  workingPlan  = clonePlan(stored.plan ?? DEFAULT_PLAN);
+  let initialPlan    = stored.plan;
+  let initialCourse  = null;
+  if (!initialPlan) {
+    initialCourse = DEFAULT_COURSE;
+    try {
+      initialPlan = await loadCourse(initialCourse);
+    } catch (e) {
+      alert('無法載入預設課程：' + e.message);
+      initialPlan = { training: { exercise_seconds: 20, rest_seconds: 10, rounds: 1, round_rest_seconds: 60, prepare_seconds: 5 }, exercises: [] };
+    }
+  }
+
+  workingPlan  = clonePlan(initialPlan);
   originalPlan = clonePlan(workingPlan);
 
   applyPlanToLaunchUI();
@@ -53,6 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('lblWakeWarn').classList.toggle('hidden', active);
   });
 
+  try {
+    populateCourseSelect(await loadCourseList(), initialCourse);
+  } catch (e) {
+    console.warn('無法載入課程清單:', e);
+  }
+
   wireEvents();
   showView('launch');
 });
@@ -60,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ── Event wiring ──────────────────────────────────────────────────────────────
 
 function wireEvents() {
+  document.getElementById('selCourse').addEventListener('change', onCourseSelected);
   document.getElementById('btnOpen').addEventListener('click', onOpenPlan);
   document.getElementById('btnSavePlan').addEventListener('click', onSavePlanFile);
   document.getElementById('btnSaveLocal').addEventListener('click', onSaveLocal);
@@ -97,6 +119,18 @@ function wireEvents() {
 }
 
 // ── Launch view handlers ──────────────────────────────────────────────────────
+
+async function onCourseSelected(e) {
+  try {
+    const plan = await loadCourse(e.target.value);
+    workingPlan  = clonePlan(plan);
+    originalPlan = clonePlan(plan);
+    applyPlanToLaunchUI();
+    showSaveLocalBtn(false);
+  } catch (err) {
+    alert('無法載入課程：' + err.message);
+  }
+}
 
 async function onOpenPlan() {
   try {
